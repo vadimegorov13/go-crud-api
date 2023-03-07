@@ -1,9 +1,10 @@
 package main
 
 import (
-	"fmt"
-
+	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
+	"github.com/vadimegorov13/go-crud-api/pkg/common/db"
+	"github.com/vadimegorov13/go-crud-api/pkg/images"
 )
 
 /*
@@ -18,6 +19,14 @@ func main() {
 	port := viper.Get("PORT").(string)
 	dbUrl := viper.Get("DB_URL").(string)
 
-	fmt.Println(port, dbUrl)
+	router := gin.Default()
+	dbHandler := db.Init(dbUrl)
 
+	images.RegisterRoutes(router, dbHandler)
+
+	router.GET("/", func(ctx *gin.Context) {
+		ctx.JSON(200, "Hello")
+	})
+
+	router.Run(port)
 }

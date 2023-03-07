@@ -1,6 +1,7 @@
 package images
 
 import (
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
@@ -13,4 +14,18 @@ the access to GORM.
 
 type handler struct {
 	DB *gorm.DB
+}
+
+func RegisterRoutes(router *gin.Engine, db *gorm.DB) {
+	h := &handler{
+		DB: db,
+	}
+
+	routes := router.Group("/images")
+
+	routes.POST("/", h.AddImage)
+	routes.GET("/", h.GetImages)
+	routes.GET("/:id", h.GetImage)
+	routes.PATCH("/:id", h.UpdateImage)
+	routes.DELETE("/:id", h.DeleteImage)
 }

@@ -15,5 +15,5 @@ type Image struct {
 	AIModel    string `json:"ai_model"`
 	Prompt     string `json:"prompt"`
 	URL        string `json:"url"`
-	Author     *User  `json:"author"`
+	// Author     *User  `json:"author"`
 }
